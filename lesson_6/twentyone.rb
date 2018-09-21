@@ -1,24 +1,20 @@
 DECK = {
-  "hearts" => {'2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6,
+  "hearts" => { '2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6,
+                '7' => 7, '8' => 8, '9' => 9, '10' => 10, 'jack' => 10,
+                'queen' => 10, 'king' => 10, 'ace' => 11 },
+  "diamonds" => { '2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6,
+                  '7' => 7, '8' => 8, '9' => 9, '10' => 10, 'jack' => 10,
+                  'queen' => 10, 'king' => 10, 'ace' => 11 },
+  "spades" => { '2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6,
+                '7' => 7, '8' => 8, '9' => 9, '10' => 10, 'jack' => 10,
+                'queen' => 10, 'king' => 10, 'ace' => 11 },
+  "clubs" => { '2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6,
                '7' => 7, '8' => 8, '9' => 9, '10' => 10, 'jack' => 10,
-               'queen' => 10, 'king' => 10, 'ace' => 11
-   },
-  "diamonds" => {'2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6,
-               '7' => 7, '8' => 8, '9' => 9, '10' => 10, 'jack' => 10,
-               'queen' => 10, 'king' => 10, 'ace' => 11},
-  "spades" => {'2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6,
-               '7' => 7, '8' => 8, '9' => 9, '10' => 10, 'jack' => 10,
-               'queen' => 10, 'king' => 10, 'ace' => 11},
-  "clubs" => {'2' => 2, '3' => 3, '4' => 4, '5' => 5, '6' => 6,
-               '7' => 7, '8' => 8, '9' => 9, '10' => 10, 'jack' => 10,
-               'queen' => 10, 'king' => 10, 'ace' => 11}
+               'queen' => 10, 'king' => 10, 'ace' => 11 }
 
 }
 
-
 def deal_cards
-  first_card_values = []
-  second_card_values = []
   cards = [[], []]
 
   first_suit = DECK.to_a.sample[0]
@@ -27,7 +23,6 @@ def deal_cards
 
   cards[0] << "#{first_card} of #{first_suit}"
   cards[0] << first_value
-
 
   second_suit = DECK.to_a.sample[0]
   second_card = DECK[second_suit].keys.sample
@@ -40,7 +35,6 @@ def deal_cards
 end
 
 def bust?(crds)
-  crds_points = 0
   crds_points = total(crds)
   if crds_points > 21
     true
@@ -56,7 +50,7 @@ end
 
 def total(crds)
   crds_points = 0
-  crds_type = crds.map {|set| set[1]}
+  crds_type = crds.map { |set| set[1] }
 
   crds.each do |set|
     crds_points += set[1]
@@ -70,12 +64,12 @@ def total(crds)
 end
 
 players_cards = deal_cards
-puts "Your cards are: #{players_cards.map {|set| set[0]}}"
+puts "Your cards are: #{players_cards.map { |set| set[0] }}"
 puts " "
 dealers_cards = deal_cards
 puts "the dealer has: #{dealers_cards[0][0]}"
 
-#player's turn to hit or stay
+# player's turn to hit or stay
 loop do
   players_total = 0
   puts "Would you like to hit or stay"
@@ -83,7 +77,7 @@ loop do
 
   if answer.downcase.start_with?('h')
     players_cards << deal_cards[0]
-    puts "Your cards are now #{players_cards.map {|set| set[0]}}"
+    puts "Your cards are now #{players_cards.map { |set| set[0] }}"
 
     puts 'bust! Better luck next time!' if bust?(players_cards)
     break if bust?(players_cards)
@@ -100,15 +94,10 @@ loop do
   end
   players_total
 end
-puts "The dealer has: #{dealers_cards.map {|set| set[0]}}"
-
-
-
+puts "The dealer has: #{dealers_cards.map { |set| set[0] }}"
 
 if win?(players_cards) != true && bust?(players_cards) != true
   loop do
-    dealers_total = 0
-
     dealers_total = total(dealers_cards)
 
     if bust?(dealers_cards)
@@ -117,17 +106,16 @@ if win?(players_cards) != true && bust?(players_cards) != true
     elsif win?(dealers_cards)
       puts "You lost! Better luck next round!"
       break
-    else
     end
 
     if total(dealers_cards) < 17
       dealers_cards << deal_cards[0]
-      puts "The dealer's cards are now #{dealers_cards.map {|set| set[0]}}"
+      puts "The dealer's cards are now #{dealers_cards.map { |set| set[0] }}"
 
       puts 'bust! The dealer busted, YOU WIN BABYYY!' if bust?(dealers_cards)
       break if bust?(dealers_cards)
 
-      puts 'The Dealer got 21! You lose. Better luck next time!' if win?(dealers_cards)
+      puts 'The Dealer got 21! You lose.' if win?(dealers_cards)
       break if win?(dealers_cards)
 
     elsif total(dealers_cards) >= 17

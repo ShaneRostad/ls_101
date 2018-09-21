@@ -1,4 +1,3 @@
-# practice problems
 # Example
 ```ruby
 a = [1, 2, 3, 3]
@@ -78,6 +77,11 @@ my_arr = [[18, 7], [3, 12]].each do |arr|
   end
 end
 ```
+
+
+
+
+
 
 
 
