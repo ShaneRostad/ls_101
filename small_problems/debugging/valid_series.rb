@@ -10,3 +10,5 @@ p valid_series?([1, 12, 2, 5, 16, 6])             # should return false
 p valid_series?([28, 3, 4, 7, 9, 14])             # should return false
 p valid_series?([20, 6, 9, 4, 2, 1, 2, 3])        # should return true
 p valid_series?([10, 6, 19, 2, 6, 4])             # should return false
+
+alias lazytouch='pwd/touch $1; pwd/open $2'
